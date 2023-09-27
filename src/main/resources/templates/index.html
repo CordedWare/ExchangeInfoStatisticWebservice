@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Главное меню</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="/js/notification.js"></script>
+    <link rel="stylesheet" href="/css/notification.css">
+</head>
+
+<body>
+<div class="container">
+    <h1>Информационно-статистический веб-сервис биржи</h1>
+    <h2><span sec:authentication="name"></span></h2>
+    <hr/>
+    <a href="/datahub">Информация о ценных бумагах</a>
+    <hr/>
+    <a href="/tradehistory">История торгов за произвольную дату</a>
+    <hr/>
+    <a href="/summary">Сводные данные</a>
+    <hr/>
+    <form action="/data" method="post" th:action="@{/data}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <button type="submit">Запросить историю торгов через портал</button>
+    </form>
+    <hr/>
+    <h4>Загрузить XML-файл</h4>
+    <form th:action="@{/upload}" method="post" enctype="multipart/form-data" th:object="${uploadForm}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <input type="file" name="file" accept=".xml">
+        <br>
+        <br>
+        <input type="submit" value="Upload">
+    </form>
+    <div class="notification" id="uploadNotification">
+        <span th:text="${uploadStatus}" th:if="${uploadStatus != null}"></span>
+    </div>
+    <hr/>
+    <h2><a href="/logout">Выйти</a></h2>
+</div>
+</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Securities</title>
+</head>
+<body>
+<div class="container">
+  <h2>Edit Securities</h2>
+  <form th:action="@{/datahub/update/{id}(id=${securitiesDataHub.id})}" th:object="${securitiesDataHub}" method="post">
+    <table>
+      <tr>
+        <td>regnumber:</td>
+        <td><input type="text" th:field="*{regnumber}" /></td>
+      </tr>
+      <tr>
+        <td>emitentTitle:</td>
+        <td><input type="text" th:field="*{emitentTitle}" /></td>
+      </tr>
+      <tr>
+        <td colspan="2"><button type="submit">Сохранить</button></td>
+      </tr>
+    </table>
+  </form>
+</div>
+</body>
+</html>

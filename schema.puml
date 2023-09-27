@@ -1,0 +1,49 @@
+@startuml
+class ru.example.ExchangeInfoStaticWebservice.service.SecuritiesDataHubService {
+- SecuritiesDataHubRepository securitiesDataHubRepository
++ Iterable<SecuritiesDataHub> getAllSecurities()
++ SecuritiesDataHub getById(Long)
++ void delete(SecuritiesDataHub)
+}
+interface ru.example.ExchangeInfoStaticWebservice.repository.SecuritiesDataHubRepository {
+~ void deleteAll()
+~ List<SecuritiesDataHub> findByRegnumber(String)
+~ SecuritiesDataHub findBySecid(String)
+}
+class ru.example.ExchangeInfoStaticWebservice.entity.SecuritiesDataHub {
+- Long id
+- String secid
+- String regnumber
+- String name
+- String emitentTitle
+}
+class ru.example.ExchangeInfoStaticWebservice.configuration.MvcConfiguration {
++ void addViewControllers(ViewControllerRegistry)
+}
+class ru.example.ExchangeInfoStaticWebservice.entity.TradeHistoryTracker {
+- Long id
+- SecuritiesDataHub secid
+- LocalDate tradedate
+- String numtrades
+- Double open
+- Double close
+}
+interface ru.example.ExchangeInfoStaticWebservice.repository.TradeHistoryTrackerRepository {
+~ void deleteAll()
+~ List<TradeHistoryTracker> findAllByNumtrades(String)
+~ List<TradeHistoryTracker> findAllBySecid(SecuritiesDataHub)
+~ List<TradeHistoryTracker> findBySecid(SecuritiesDataHub)
+}
+class ru.example.ExchangeInfoStaticWebservice.service.TradeHistoryTrackerService {
+- TradeHistoryTrackerRepository tradeHistoryTrackerRepository
++ Iterable<TradeHistoryTracker> getAllTradeHistory()
++ List<TradeHistoryTracker> getBySecid(SecuritiesDataHub)
++ void delete(TradeHistoryTracker)
++ void deleteBySecidIn(List<Long>)
+}
+
+
+org.springframework.data.jpa.repository.JpaRepository <|-- ru.example.ExchangeInfoStaticWebservice.repository.SecuritiesDataHubRepository
+org.springframework.web.servlet.config.annotation.WebMvcConfigurer <|.. ru.example.ExchangeInfoStaticWebservice.configuration.MvcConfiguration
+org.springframework.data.jpa.repository.JpaRepository <|-- ru.example.ExchangeInfoStaticWebservice.repository.TradeHistoryTrackerRepository
+@enduml

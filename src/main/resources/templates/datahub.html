@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о ценных бумагах</title>
+</head>
+
+<body>
+<div class="container">
+
+    <hr>
+    <p>
+        Информация о ценных бумагах
+        <br>
+        Загружено <span th:text="${securitiesDataHubList.size()}"></span> записей
+    </p>
+    <hr>
+    <h3><a href="/index">Вернутся в меню</a></h3>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>secid</th>
+            <th>regnumber</th>
+            <th>name</th>
+            <th>emitent_title</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="securitiesDataHub : ${securitiesDataHubList}">
+            <td th:text="${securitiesDataHub.secid}"></td>
+            <td th:text="${securitiesDataHub.regnumber}"></td>
+            <td th:text="${securitiesDataHub.name}"></td>
+            <td th:text="${securitiesDataHub.emitentTitle}"></td>
+            <td><a th:href="@{/datahub/edit/{id}(id=${securitiesDataHub.id})}">Редактировать</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <h3><a href="/index">Вернутся в меню</a></h3>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
